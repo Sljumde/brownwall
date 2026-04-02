@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music Player</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #playWrap {
+      display: none;
+      text-align: center;
+      color: white;
+    }
+
+    #playBtn {
+      background: white;
+      color: black;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #note {
+      margin-top: 10px;
+      font-size: 13px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="YOUR_AUDIO_URL_HERE.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+  <div id="playWrap">
+    <button id="playBtn">Play Music</button>
+    <div id="note">Autoplay got blocked. One click starts it.</div>
+  </div>
+
+  <script>
+    const audio = document.getElementById("bgMusic");
+    const playWrap = document.getElementById("playWrap");
+    const playBtn = document.getElementById("playBtn");
+
+    async function startMusic() {
+      try {
+        await audio.play();
+        playWrap.style.display = "none";
+      } catch (e) {
+        playWrap.style.display = "block";
+      }
+    }
+
+    playBtn.addEventListener("click", async () => {
+      try {
+        await audio.play();
+        playWrap.style.display = "none";
+      } catch (e) {
+        alert("Browser is still blocking autoplay.");
+      }
+    });
+
+    window.addEventListener("load", startMusic);
+  </script>
+
+</body>
+</html>
