@@ -3,28 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dark Knight Music</title>
+  <title>Opexx</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
       height: 100%;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #coverGif {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     #playWrap {
       display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
       text-align: center;
+      font-family: Arial, sans-serif;
       color: white;
     }
 
     #playBtn {
-      background: white;
-      color: black;
+      background: rgba(255,255,255,0.92);
+      color: #111;
       border: none;
       padding: 14px 22px;
       border-radius: 10px;
@@ -35,20 +54,28 @@
     #note {
       margin-top: 10px;
       font-size: 13px;
-      opacity: 0.8;
+      opacity: 0.95;
     }
   </style>
 </head>
 <body>
 
-  <audio id="bgMusic" autoplay loop>
-    <source src="https://raw.githubusercontent.com/Sljumde/brownwall/main/darknight.mp3" type="audio/mpeg">
-    Your browser does not support audio.
-  </audio>
+  <div class="wrap">
+    <img
+      id="coverGif"
+      src="https://raw.githubusercontent.com/Sljumde/brownwall/main/opexx.gif"
+      alt="Opexx"
+    >
 
-  <div id="playWrap">
-    <button id="playBtn">Play Music</button>
-    <div id="note">Autoplay was blocked by the browser. Click once to start.</div>
+    <audio id="bgMusic" autoplay loop>
+      <source src="https://raw.githubusercontent.com/Sljumde/brownwall/main/darknight.mp3" type="audio/mpeg">
+      Your browser does not support audio.
+    </audio>
+
+    <div id="playWrap">
+      <button id="playBtn">Play Music</button>
+      <div id="note">Autoplay was blocked. Click once.</div>
+    </div>
   </div>
 
   <script>
@@ -61,7 +88,7 @@
         await audio.play();
         playWrap.style.display = "none";
       } catch (e) {
-        playWrap.style.display = "block";
+        playWrap.style.display = "flex";
       }
     }
 
@@ -70,7 +97,7 @@
         await audio.play();
         playWrap.style.display = "none";
       } catch (e) {
-        alert("Browser is still blocking autoplay.");
+        console.log("Playback still blocked.");
       }
     });
 
